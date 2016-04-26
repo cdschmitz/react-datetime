@@ -35,14 +35,14 @@ var DateTimePickerTime = React.createClass({
 	},
 	renderCounter: function( type ){
 		return DOM.div({ key: type, className: 'rdtCounter'}, [
-			DOM.button({
+			DOM.span({
         key:'up',
         className: 'rdtBtn',
         onMouseDown: handleMouseDown(this.onStartClicking( 'increase', type )),
         type: 'button'
       }, '▲' ),
 			DOM.div({ key:'c', className: 'rdtCount' }, this.state[ type ] ),
-			DOM.button({
+			DOM.span({
         key:'do',
         className: 'rdtBtn',
         onMouseDown: handleMouseDown(this.onStartClicking( 'decrease', type )),
@@ -70,7 +70,7 @@ var DateTimePickerTime = React.createClass({
 				);
 		}
 
-		return DOM.div( {className: 'rdtTime', onMouseDown: handleMouseDown()},
+		return DOM.div( {className: 'rdtTime'},
 			DOM.table( {}, [
 				this.renderHeader(),
 				DOM.tbody({key: 'b'}, DOM.tr({}, DOM.td({},

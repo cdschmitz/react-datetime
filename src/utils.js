@@ -7,7 +7,7 @@ function handleMouseDown(callback) {
       ev.preventDefault();
       ev.stopPropagation();
       if (typeof callback === 'function') {
-        callback(ev);
+        return callback(ev);
       }
     }
   }

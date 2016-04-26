@@ -6,6 +6,7 @@ var assign = require('object-assign'),
 	MonthsView = require('./src/MonthsView'),
 	YearsView = require('./src/YearsView'),
 	TimeView = require('./src/TimeView'),
+	handleMouseDown = require('./src/utils').handleMouseDown,
 	moment = require('moment')
 ;
 
@@ -338,7 +339,7 @@ var Datetime = React.createClass({
 
 		return DOM.div({className: className}, children.concat(
 			DOM.div(
-				{ key: 'dt', className: 'rdtPicker' },
+				{ key: 'dt', className: 'rdtPicker', onMouseDown: handleMouseDown() },
 				React.createElement( Component, this.getComponentProps())
 			)
 		));

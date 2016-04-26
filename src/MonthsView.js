@@ -8,23 +8,25 @@ var React = require('react'),
 var DOM = React.DOM;
 var DateTimePickerMonths = React.createClass({
 	render: function() {
-		return DOM.div({ className: 'rdtMonths', onMouseDown: handleMouseDown() },[
+		return DOM.div({ className: 'rdtMonths' },[
 			DOM.table({ key: 'a'}, DOM.thead({}, DOM.tr({},[
-				DOM.th({ key: 'prev', className: 'rdtPrev' }, DOM.button({
-          onMouseDown: handleMouseDown(this.props.subtractTime(1, 'years')),
-          type: 'button'
-        }, '‹')),
+				DOM.th({
+          key: 'prev',
+          className: 'rdtPrev',
+          onMouseDown: handleMouseDown(this.props.subtractTime(1, 'years'))
+        }, DOM.span({ type: 'button' }, '‹')),
 				DOM.th({
           key: 'year',
           className: 'rdtSwitch',
-          onMouseDown: handleMouseDown(this.props.showView('years')),
           colSpan: 2,
-          'data-value': this.props.viewDate.year()
+          'data-value': this.props.viewDate.year(),
+          onMouseDown: handleMouseDown(this.props.showView('years'))
         }, this.props.viewDate.year() ),
-				DOM.th({ key: 'next', className: 'rdtNext' }, DOM.button({
-          onMouseDown: handleMouseDown(this.props.addTime(1, 'years')),
-          type: 'button'
-        }, '›'))
+				DOM.th({
+          key: 'next',
+          className: 'rdtNext',
+          onMouseDown: handleMouseDown(this.props.addTime(1, 'years'))
+        }, DOM.span({ type: 'button' }, '›'))
 			]))),
 			DOM.table({ key: 'months'}, DOM.tbody({ key: 'b'}, this.renderMonths()))
 		]);
