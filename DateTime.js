@@ -11,9 +11,6 @@ var assign = require('object-assign'),
 
 var TYPES = React.PropTypes;
 var Datetime = React.createClass({
-	mixins: [
-		require('./src/onClickOutside')
-	],
 	viewComponents: {
 		days: DaysView,
 		months: MonthsView,
@@ -268,7 +265,14 @@ var Datetime = React.createClass({
 		this.setState({ open: false });
 	},
 
-	handleClickOutside: function(){
+  handleBlur: function() {
+		if( this.props.input && this.state.open && !this.props.open ){
+			this.setState({ open: false });
+			this.props.onBlur( this.state.selectedDate || this.state.inputValue );
+		}
+  },
+
+	handleBlur: function(){
 		if( this.props.input && this.state.open && !this.props.open ){
 			this.setState({ open: false });
 			this.props.onBlur( this.state.selectedDate || this.state.inputValue );
@@ -321,6 +325,7 @@ var Datetime = React.createClass({
 				className: 'form-control',
 				onFocus: this.openCalendar,
 				onChange: this.onInputChange,
+        onBlur: this.handleBlur,
 				value: this.state.inputValue
 			}, this.props.inputProps ))];
 		}
