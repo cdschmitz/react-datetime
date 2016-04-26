@@ -1,17 +1,30 @@
 'use strict';
 
 var React = require('react'),
-moment = require('moment')
+  moment = require('moment'),
+	handleMouseDown = require('./utils').handleMouseDown
 ;
 
 var DOM = React.DOM;
 var DateTimePickerMonths = React.createClass({
 	render: function() {
-		return DOM.div({ className: 'rdtMonths' },[
+		return DOM.div({ className: 'rdtMonths', onMouseDown: handleMouseDown() },[
 			DOM.table({ key: 'a'}, DOM.thead({}, DOM.tr({},[
-				DOM.th({ key: 'prev', className: 'rdtPrev' }, DOM.button({onClick: this.props.subtractTime(1, 'years'), type: 'button' }, '‹')),
-				DOM.th({ key: 'year', className: 'rdtSwitch', onClick: this.props.showView('years'), colSpan: 2, 'data-value': this.props.viewDate.year()}, this.props.viewDate.year() ),
-				DOM.th({ key: 'next', className: 'rdtNext' }, DOM.button({onClick: this.props.addTime(1, 'years'), type: 'button' }, '›'))
+				DOM.th({ key: 'prev', className: 'rdtPrev' }, DOM.button({
+          onMouseDown: handleMouseDown(this.props.subtractTime(1, 'years')),
+          type: 'button'
+        }, '‹')),
+				DOM.th({
+          key: 'year',
+          className: 'rdtSwitch',
+          onMouseDown: handleMouseDown(this.props.showView('years')),
+          colSpan: 2,
+          'data-value': this.props.viewDate.year()
+        }, this.props.viewDate.year() ),
+				DOM.th({ key: 'next', className: 'rdtNext' }, DOM.button({
+          onMouseDown: handleMouseDown(this.props.addTime(1, 'years')),
+          type: 'button'
+        }, '›'))
 			]))),
 			DOM.table({ key: 'months'}, DOM.tbody({ key: 'b'}, this.renderMonths()))
 		]);
@@ -37,7 +50,7 @@ var DateTimePickerMonths = React.createClass({
 				key: i,
 				'data-value': i,
 				className: classes,
-				onClick: this.props.setDate('month')
+				onMouseDown: handleMouseDown(this.props.setDate('month'))
 			};
 
 			months.push( renderer( props, i, year, date && date.clone() ));

@@ -1,17 +1,30 @@
 'use strict';
 
-var React = require('react');
+var React = require('react'),
+	handleMouseDown = require('./utils').handleMouseDown
+;
 
 var DOM = React.DOM;
 var DateTimePickerYears = React.createClass({
 	render: function() {
 		var year = parseInt(this.props.viewDate.year() / 10, 10) * 10;
 
-		return DOM.div({ className: 'rdtYears' },[
+		return DOM.div({ className: 'rdtYears', onMouseDown: handleMouseDown() },[
 			DOM.table({ key: 'a'}, DOM.thead({}, DOM.tr({},[
-				DOM.th({ key: 'prev', className: 'rdtPrev' }, DOM.button({onClick: this.props.subtractTime(10, 'years'), type: 'button' }, '‹')),
-				DOM.th({ key: 'year', className: 'rdtSwitch', onClick: this.props.showView('years'), colSpan: 2 }, year + '-' + (year + 9) ),
-				DOM.th({ key: 'next', className: 'rdtNext'}, DOM.button({onClick: this.props.addTime(10, 'years'), type: 'button' }, '›'))
+				DOM.th({ key: 'prev', className: 'rdtPrev' }, DOM.button({
+          onMouseDown: handleMouseDown(this.props.subtractTime(10, 'years')),
+          type: 'button'
+        }, '‹')),
+				DOM.th({
+          key: 'year',
+          className: 'rdtSwitch',
+          onMouseDown: handleMouseDown(this.props.showView('years')),
+          colSpan: 2
+        }, year + '-' + (year + 9) ),
+				DOM.th({ key: 'next', className: 'rdtNext'}, DOM.button({
+          onMouseDown: handleMouseDown(this.props.addTime(10, 'years')),
+          type: 'button'
+        }, '›'))
 				]))),
 			DOM.table({ key: 'years'}, DOM.tbody({}, this.renderYears( year )))
 		]);
@@ -38,7 +51,7 @@ var DateTimePickerYears = React.createClass({
 				key: year,
 				'data-value': year,
 				className: classes,
-				onClick: this.props.setDate('year')
+				onMouseDown: handleMouseDown(this.props.setDate('year'))
 			};
 
 			years.push( renderer( props, year, selectedDate && selectedDate.clone() ));
