@@ -267,15 +267,8 @@ var Datetime = React.createClass({
 		this.setState({ open: false });
 	},
 
-  handleBlur: function() {
-		if( this.props.input && this.state.open && !this.props.open ){
-			this.setState({ open: false });
-			this.props.onBlur( this.state.selectedDate || this.state.inputValue );
-		}
-  },
-
 	handleBlur: function(){
-		if( this.props.input && this.state.open && !this.props.open ){
+		if ( this.props.input && this.state.open && !this.props.open ){
 			this.setState({ open: false });
 			this.props.onBlur( this.state.selectedDate || this.state.inputValue );
 		}
