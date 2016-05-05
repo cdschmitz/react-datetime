@@ -33,7 +33,8 @@ var Datetime = React.createClass({
 		viewMode: TYPES.oneOf(['years', 'months', 'days', 'time']),
 		isValidDate: TYPES.func,
 		open: TYPES.bool,
-		strictParsing: TYPES.bool
+		strictParsing: TYPES.bool,
+		style: TYPES.object,
 	},
 
 	getDefaultProps: function() {
@@ -337,7 +338,7 @@ var Datetime = React.createClass({
 		if( this.state.open )
 			className += ' rdtOpen';
 
-		return DOM.div({className: className}, children.concat(
+		return DOM.div({className: className, style: this.props.style}, children.concat(
 			DOM.div(
 				{ key: 'dt', className: 'rdtPicker', onMouseDown: handleMouseDown() },
 				React.createElement( Component, this.getComponentProps())
